@@ -1,0 +1,62 @@
+<div>
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h3 class="card-title">Lista de veículos excluidos</h3>
+
+        <div>
+          <a [routerLink]="['/cars']" class="btn btn-default btn-sm mx-2">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+          <button (click)="onRefresh()" class="btn btn-light btn-sm">
+            <i class="fas fa-sync"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover" *ngIf="cars$ | async as cars; else loading">
+        <thead>
+          <th>#</th>
+          <th>Proprietário</th>
+          <th>Título</th>
+          <th>Placa</th>
+          <th>Ano</th>
+          <th>Modelo</th>
+          <th>Deletado</th>
+          <th>Cadastro</th>
+          <th>Atualização</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of cars">
+            <td>{{ car.id }}</td>
+            <td>{{ car.user_id ? car.user.name : '--' }}</td>
+            <td>{{ car.title }}</td>
+            <td>{{ car.plat }}</td>
+            <td>{{ car.year }}</td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.deleted_at | date: 'd/m/Y' }}</td>
+            <td>{{ car.created_at | date: 'd/m/Y' }}</td>
+            <td>{{ car.updated_at | date: 'd/m/Y' }}</td>
+            <td>
+              <button title="Restaurar" type="button" class="btn btn-default btn-xs shadow mx-2" (click)="restore(car.id)">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button title="Excluir definitivo" type="button" (click)="deleteCar(car)" class="btn btn-danger btn-xs shadow">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #loading>
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

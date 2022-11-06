@@ -1,0 +1,74 @@
+<div>
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h3 class="card-title">Cadastrar veículo</h3>
+
+        <div>
+          <a [routerLink]="['/cars']" class="btn btn-primary btn-sm">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body table-responsive">
+
+      <form (ngSubmit)="save()" [formGroup]="form" >
+        <div class="mb-3">
+          <label for="user-id">Proprietário</label>
+          <select id="user-id" formControlName="user_id" class="form-control">
+            <option value="">--</option>
+            <option value="{{ user.id }}" *ngFor="let user of users$ | async">
+              {{ user.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="title">Título</label>
+          <input type="text" id="title" formControlName="title" class="form-control" placeholder="Ex: Carro do meu PAI" />
+          <div class="text-danger" *ngIf="formSubmited && !form.get('title')?.valid">
+            Informe o título
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="plat">Placa</label>
+          <input type="text" id="plat" formControlName="plat" class="form-control" />
+          <div class="text-danger" *ngIf="formSubmited && !form.get('plat')?.valid">
+            Informe a plata do veículo
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="year">Ano</label>
+              <input type="text" id="year" formControlName="year" class="form-control" minlength="4" maxlength="4" />
+              <div class="text-danger" *ngIf="formSubmited && !form.get('year')?.valid">
+                Informe o ano do veículo com 4 digitos númericos
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="model">Modelo</label>
+              <input type="text" id="model" formControlName="model" class="form-control"  minlength="4" maxlength="4" />
+              <div class="text-danger" *ngIf="formSubmited && !form.get('model')?.valid">
+                Informe o ano modelo do veículo com 4 digitos númericos
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description">Descrição <small>(opcional)</small></label>
+          <textarea id="description" formControlName="description" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="loading">
+          <i class="fas fa-sharp fa-solid fa-floppy-disk"></i> Salvar
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>

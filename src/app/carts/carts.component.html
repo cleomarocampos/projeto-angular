@@ -1,0 +1,63 @@
+<div>
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h3 class="card-title">Lista de veículos</h3>
+
+        <div>
+          <button (click)="onRefresh()" class="btn btn-light btn-sm">
+            <i class="fas fa-sync"></i>
+          </button>
+          <a [routerLink]="['/cars/create']" class="btn btn-default btn-sm mx-2">
+            <i class="fas fa-plus"></i>
+          </a>
+          <a [routerLink]="['/cars/trash']" class="btn btn-default btn-sm mx-2">
+            <i class="fas fa-trash"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover" *ngIf="cars$ | async as cars; else loading">
+        <thead>
+          <th>#</th>
+          <th>Proprietário</th>
+          <th>Título</th>
+          <th>Placa</th>
+          <th>Ano</th>
+          <th>Modelo</th>
+          <th>Cadastro</th>
+          <th>Atualização</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of cars">
+            <td>{{ car.id }}</td>
+            <td>{{ car.user_id ? car.user.name : '--' }}</td>
+            <td>{{ car.title }}</td>
+            <td>{{ car.plat }}</td>
+            <td>{{ car.year }}</td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.created_at | date: 'd/m/Y' }}</td>
+            <td>{{ car.updated_at | date: 'd/m/Y' }}</td>
+            <td>
+              <a [routerLink]="['/cars/edit/' + car.id]" class="btn btn-default btn-xs shadow mx-2">
+                <i class="fas fa-edit"></i>
+              </a>
+              <button type="button" (click)="deleteCar(car)" class="btn btn-danger btn-xs shadow">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #loading>
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
