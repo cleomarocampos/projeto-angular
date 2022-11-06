@@ -10,5 +10,5 @@ export interface Car {
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
-  user: User;
+  user?: User;
 }

@@ -33,7 +33,7 @@
         <tbody>
           <tr *ngFor="let car of cars">
             <td>{{ car.id }}</td>
-            <td>{{ car.user_id ? car.user.name : '--' }}</td>
+            <td>{{ car.user_id ? car.user?.name : '--' }}</td>
             <td>{{ car.title }}</td>
             <td>{{ car.plat }}</td>
             <td>{{ car.year }}</td>
